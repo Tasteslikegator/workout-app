@@ -821,7 +821,7 @@ export default function WorkoutApp() {
 
             return (
             <div className="fade-in" style={{overflowY:"auto",paddingBottom:40}}>
-              <div style={{padding:"28px 20px 20px"}}>
+              <div style={{padding:"16px 20px 12px"}}>
                 <div style={{fontSize:28,fontWeight:900,color:C.text,fontFamily:"Playfair Display"}}>Progress</div>
                 <div style={{fontSize:14,color:C.textLight,marginTop:4}}>Track your journey</div>
               </div>
@@ -1078,7 +1078,7 @@ export default function WorkoutApp() {
           )}
 
           {/* BOTTOM NAV */}
-          <div style={{position:"fixed",bottom:0,left:0,right:0,transform:"none",width:"100%",background:C.navBg,left:0,right:0,transform:"none",borderTop:`1px solid ${C.border}`,display:"flex",padding:"8px 0 12px",paddingBottom:"max(12px, env(safe-area-inset-bottom))",zIndex:100,boxShadow:"0 -4px 20px rgba(0,0,0,.06)"}}>
+          <div style={{position:"fixed",bottom:0,left:0,right:0,width:"100%",background:C.navBg,borderTop:`1px solid ${C.border}`,display:"flex",padding:"8px 0 12px",paddingBottom:"max(12px, env(safe-area-inset-bottom))",zIndex:100,boxShadow:"0 -4px 20px rgba(0,0,0,.06)"}}>
             {[{id:"home",icon:"🏠",label:"Home"},{id:"plans",icon:"📋",label:"Plans"},{id:"progress",icon:"📈",label:"Progress"},{id:"timer",icon:"⏱️",label:"Timer"}].map(n=>(
               <button key={n.id} onClick={()=>{setTab(n.id);if(n.id==="plans")setSelectedPlanId(null);}} style={{flex:1,background:"none",display:"flex",flexDirection:"column",alignItems:"center",gap:3,padding:"4px 0",fontFamily:"Nunito"}}>
                 <div style={{fontSize:22,filter:tab===n.id?"none":"grayscale(60%)",opacity:tab===n.id?1:.5}}>{n.icon}</div>
