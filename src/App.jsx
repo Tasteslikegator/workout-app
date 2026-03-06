@@ -1,4 +1,6 @@
+
 import { useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 
 const LIGHT = {
   bg: "#FDF8F4", card: "#FFFFFF", accent: "#E8826A", accentLight: "#FDEEE9",
@@ -101,16 +103,25 @@ function formatTime(s) {
 
 // ── Modal shell ─────────────────────────────────────────────────────────────
 function Modal({ title, onClose, children, C=LIGHT }) {
-  return (
-    <div style={{ position:"fixed", inset:0, background:"rgba(44,36,32,0.5)", zIndex:300, display:"flex", alignItems:"flex-end", justifyContent:"center" }}>
-      <div style={{ background:C.card, borderRadius:"24px 24px 0 0", width:"100%", maxWidth:430, maxHeight:"88vh", overflowY:"auto", padding:"24px 20px 44px", animation:"slideUp .28s ease" }}>
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = ""; };
+  }, []);
+  return createPortal(
+    <div
+      onClick={onClose}
+      style={{ position:"fixed", top:0, left:0, right:0, bottom:0, background:"rgba(44,36,32,0.5)", zIndex:9999, display:"flex", alignItems:"center", justifyContent:"center", padding:"16px" }}>
+      <div
+        onClick={e=>e.stopPropagation()}
+        style={{ background:C.card, borderRadius:"24px", width:"100%", maxWidth:430, maxHeight:"80vh", overflowY:"auto", padding:"24px 20px 32px", WebkitOverflowScrolling:"touch" }}>
         <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:20 }}>
           <div style={{ fontSize:18, fontWeight:900, color:C.text, fontFamily:"Playfair Display" }}>{title}</div>
-          <button onClick={onClose} style={{ background:C.border, borderRadius:20, width:32, height:32, fontSize:18, color:C.textMid, display:"flex", alignItems:"center", justifyContent:"center" }}>×</button>
+          <button onClick={onClose} style={{ background:C.border, borderRadius:20, width:36, height:36, fontSize:20, color:C.textMid, display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>×</button>
         </div>
         {children}
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
 
@@ -169,7 +180,7 @@ function DayModal({ day, onSave, onClose, C=LIGHT }) {
 
 // ── Plan modal ───────────────────────────────────────────────────────────────
 function PlanModal({ plan, onSave, onClose, C=LIGHT }) {
-  const initColorIdx = plan ? Math.max(0, PLAN_C.findIndex(c=>c.bg===plan.color)) : 0;
+  const initColorIdx = plan ? Math.max(0, PLAN_COLORS.findIndex(c=>c.bg===plan.color)) : 0;
   const [name, setName] = useState(plan?.name || "");
   const [tag, setTag] = useState(plan?.tag || "");
   const [emoji, setEmoji] = useState(plan?.emoji || "💪");
@@ -189,7 +200,7 @@ function PlanModal({ plan, onSave, onClose, C=LIGHT }) {
       <div style={{ marginBottom:24 }}>
         <div style={{ fontSize:11, fontWeight:700, color:C.textLight, textTransform:"uppercase", letterSpacing:.8, marginBottom:8 }}>Color</div>
         <div style={{ display:"flex", gap:10 }}>
-          {PLAN_C.map((c,i) => (
+          {PLAN_COLORS.map((c,i) => (
             <button key={i} onClick={()=>setColorIdx(i)} style={{ width:36, height:36, borderRadius:"50%", background:c.bg, border:colorIdx===i?`3px solid ${c.tag}`:"3px solid transparent", cursor:"pointer", boxShadow:colorIdx===i?`0 0 0 2px ${c.tag}55`:"none" }} />
           ))}
         </div>
@@ -491,7 +502,7 @@ export default function WorkoutApp() {
   };
 
   return (
-    <div style={{ fontFamily:"'Nunito','Georgia',sans-serif", background:C.bg, minHeight:"100vh", maxWidth:430, margin:"0 auto", position:"relative", paddingBottom:80 }}>
+    <div style={{ fontFamily:"'Nunito','Georgia',sans-serif", background:C.bg, minHeight:"100vh", maxWidth:430, margin:"0 auto", paddingBottom:80 }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Playfair+Display:wght@700&display=swap');
         *{box-sizing:border-box;margin:0;padding:0}button{cursor:pointer;border:none;outline:none}input{outline:none;border:none}::-webkit-scrollbar{width:0}
