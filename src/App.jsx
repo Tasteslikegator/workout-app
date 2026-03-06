@@ -501,7 +501,7 @@ export default function WorkoutApp() {
   };
 
   return (
-    <div style={{ fontFamily:"'Nunito','Georgia',sans-serif", background:C.bg, minHeight:"100vh", width:"100%", maxWidth:430, margin:"0 auto", paddingBottom:120, overflowX:"hidden" }}>
+    <div style={{ fontFamily:"'Nunito','Georgia',sans-serif", background:C.bg, minHeight:"100vh", width:"100%", margin:"0 auto", paddingBottom:120, overflowX:"hidden" }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Playfair+Display:wght@700&display=swap');
         *{box-sizing:border-box;margin:0;padding:0}button{cursor:pointer;border:none;outline:none}input{outline:none;border:none}::-webkit-scrollbar{width:0}html,body{height:100%;overflow-x:hidden}
@@ -1078,7 +1078,7 @@ export default function WorkoutApp() {
           )}
 
           {/* BOTTOM NAV */}
-          <div style={{position:"fixed",bottom:0,left:0,right:0,transform:"none",width:"100%",maxWidth:430,background:C.navBg,left:0,right:0,transform:"none",borderTop:`1px solid ${C.border}`,display:"flex",padding:"8px 0 12px",paddingBottom:"max(12px, env(safe-area-inset-bottom))",zIndex:100,boxShadow:"0 -4px 20px rgba(0,0,0,.06)"}}>
+          <div style={{position:"fixed",bottom:0,left:0,right:0,transform:"none",width:"100%",background:C.navBg,left:0,right:0,transform:"none",borderTop:`1px solid ${C.border}`,display:"flex",padding:"8px 0 12px",paddingBottom:"max(12px, env(safe-area-inset-bottom))",zIndex:100,boxShadow:"0 -4px 20px rgba(0,0,0,.06)"}}>
             {[{id:"home",icon:"🏠",label:"Home"},{id:"plans",icon:"📋",label:"Plans"},{id:"progress",icon:"📈",label:"Progress"},{id:"timer",icon:"⏱️",label:"Timer"}].map(n=>(
               <button key={n.id} onClick={()=>{setTab(n.id);if(n.id==="plans")setSelectedPlanId(null);}} style={{flex:1,background:"none",display:"flex",flexDirection:"column",alignItems:"center",gap:3,padding:"4px 0",fontFamily:"Nunito"}}>
                 <div style={{fontSize:22,filter:tab===n.id?"none":"grayscale(60%)",opacity:tab===n.id?1:.5}}>{n.icon}</div>
