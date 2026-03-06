@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 
@@ -502,10 +501,10 @@ export default function WorkoutApp() {
   };
 
   return (
-    <div style={{ fontFamily:"'Nunito','Georgia',sans-serif", background:C.bg, minHeight:"100vh", maxWidth:430, margin:"0 auto", paddingBottom:80 }}>
+    <div style={{ fontFamily:"'Nunito','Georgia',sans-serif", background:C.bg, minHeight:"100vh", width:"100%", maxWidth:430, margin:"0 auto", paddingBottom:120, overflowX:"hidden" }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Playfair+Display:wght@700&display=swap');
-        *{box-sizing:border-box;margin:0;padding:0}button{cursor:pointer;border:none;outline:none}input{outline:none;border:none}::-webkit-scrollbar{width:0}
+        *{box-sizing:border-box;margin:0;padding:0}button{cursor:pointer;border:none;outline:none}input{outline:none;border:none}::-webkit-scrollbar{width:0}html,body{height:100%;overflow-x:hidden}
         .fade-in{animation:fi .3s ease}@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
         @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
         .pulse{animation:pu 2s infinite}@keyframes pu{0%,100%{opacity:1}50%{opacity:.5}}
@@ -821,7 +820,7 @@ export default function WorkoutApp() {
             }
 
             return (
-            <div className="fade-in">
+            <div className="fade-in" style={{overflowY:"auto",paddingBottom:40}}>
               <div style={{padding:"28px 20px 20px"}}>
                 <div style={{fontSize:28,fontWeight:900,color:C.text,fontFamily:"Playfair Display"}}>Progress</div>
                 <div style={{fontSize:14,color:C.textLight,marginTop:4}}>Track your journey</div>
@@ -1026,7 +1025,7 @@ export default function WorkoutApp() {
 
           {/* TIMER */}
           {tab==="timer"&&(
-            <div className="fade-in">
+            <div className="fade-in" style={{overflowY:"auto",paddingBottom:40}}>
               <div style={{padding:"28px 20px 20px"}}>
                 <div style={{fontSize:28,fontWeight:900,color:C.text,fontFamily:"Playfair Display"}}>Timer</div>
                 <div style={{fontSize:14,color:C.textLight,marginTop:4}}>Rest & stopwatch tools</div>
@@ -1079,7 +1078,7 @@ export default function WorkoutApp() {
           )}
 
           {/* BOTTOM NAV */}
-          <div style={{position:"fixed",bottom:0,left:"50%",transform:"translateX(-50%)",width:"100%",maxWidth:430,background:C.navBg,borderTop:`1px solid ${C.border}`,display:"flex",padding:"8px 0 12px",zIndex:100,boxShadow:"0 -4px 20px rgba(0,0,0,.06)"}}>
+          <div style={{position:"fixed",bottom:0,left:0,right:0,transform:"none",width:"100%",maxWidth:430,background:C.navBg,left:0,right:0,transform:"none",borderTop:`1px solid ${C.border}`,display:"flex",padding:"8px 0 12px",paddingBottom:"max(12px, env(safe-area-inset-bottom))",zIndex:100,boxShadow:"0 -4px 20px rgba(0,0,0,.06)"}}>
             {[{id:"home",icon:"🏠",label:"Home"},{id:"plans",icon:"📋",label:"Plans"},{id:"progress",icon:"📈",label:"Progress"},{id:"timer",icon:"⏱️",label:"Timer"}].map(n=>(
               <button key={n.id} onClick={()=>{setTab(n.id);if(n.id==="plans")setSelectedPlanId(null);}} style={{flex:1,background:"none",display:"flex",flexDirection:"column",alignItems:"center",gap:3,padding:"4px 0",fontFamily:"Nunito"}}>
                 <div style={{fontSize:22,filter:tab===n.id?"none":"grayscale(60%)",opacity:tab===n.id?1:.5}}>{n.icon}</div>
