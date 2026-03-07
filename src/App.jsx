@@ -752,7 +752,7 @@ export default function WorkoutApp() {
                         <div style={{fontSize:13,color:C.textLight,textAlign:"center",padding:"8px 0 10px"}}>No exercises yet — add one below!</div>
                       )}
                       {day.exercises.map((ex,ei)=>(
-                        <div key={ex.id} style={{display:"flex",alignItems:"center",gap:8,marginBottom:8,padding:"9px 10px",background:C.cardAlt,borderRadius:12}}>
+                        <div key={ex.id} style={{display:"flex",alignItems:"center",gap:8,marginBottom:8,maxHeight:200,overflow:"hidden"}}>
                           <div style={{flex:1,minWidth:0}}>
                             <div style={{fontWeight:700,fontSize:14,color:C.text,whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>{ex.name}</div>
                             <div style={{display:"flex",gap:6,alignItems:"center",marginTop:2,flexWrap:"wrap"}}>
@@ -828,7 +828,7 @@ export default function WorkoutApp() {
               <div style={{padding:"0 20px",maxWidth:800,margin:"0 auto"}}>
 
                 {/* Stats */}
-                <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:8}}>
+                <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:8,maxHeight:200,overflow:"hidden"}}>
                   {[
                     {label:"Total Sessions",val:totalSessions,icon:"🏆",color:C.accentLight,accent:C.accent},
                     {label:"This Week",val:weekSessions,icon:"📅",color:C.purpleLight,accent:C.purple},
