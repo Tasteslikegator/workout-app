@@ -626,7 +626,7 @@ export default function WorkoutApp() {
           {/* HOME */}
           {tab==="home"&&(
             <div className="fade-in">
-              <div style={{padding:"28px 20px 20px"}}>
+              <div style={{padding:"60px 20px 20px"}}>
                 <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:4}}>
                   <div style={{fontSize:13,color:C.textLight,fontWeight:600,letterSpacing:1,textTransform:"uppercase"}}>Good {new Date().getHours()<12?"Morning":new Date().getHours()<17?"Afternoon":"Evening"} 👋</div>
                   <button onClick={()=>setDarkMode(d=>!d)} style={{background:darkMode?"#2C2630":"#F0EBE8",borderRadius:20,padding:"6px 12px",fontSize:15,border:"none",cursor:"pointer",transition:"all .2s"}} title="Toggle dark mode">{darkMode?"☀️":"🌙"}</button>
@@ -676,7 +676,7 @@ export default function WorkoutApp() {
           {/* PLANS LIST */}
           {tab==="plans"&&!selectedPlan&&(
             <div className="fade-in">
-              <div style={{padding:"28px 20px 16px",display:"flex",justifyContent:"space-between",alignItems:"flex-end"}}>
+              <div style={{padding:"60px 20px 16px"}}>
                 <div>
                   <div style={{fontSize:28,fontWeight:900,color:C.text,fontFamily:"Playfair Display"}}>My Plans</div>
                   <div style={{fontSize:14,color:C.textLight,marginTop:4}}>{plans.length} plan{plans.length!==1?"s":""}</div>
@@ -1026,7 +1026,7 @@ export default function WorkoutApp() {
           {/* TIMER */}
           {tab==="timer"&&(
             <div className="fade-in" style={{overflowY:"auto",paddingBottom:40}}>
-              <div style={{padding:"28px 20px 20px"}}>
+              <div style={{padding:"60px 20px 20px"}}>
                 <div style={{fontSize:28,fontWeight:900,color:C.text,fontFamily:"Playfair Display"}}>Timer</div>
                 <div style={{fontSize:14,color:C.textLight,marginTop:4}}>Rest & stopwatch tools</div>
               </div>
