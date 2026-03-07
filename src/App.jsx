@@ -580,14 +580,14 @@ export default function WorkoutApp() {
                     <div style={{fontSize:13,color:done===sets.length?C.green:C.textLight,fontWeight:700}}>{done}/{sets.length}</div>
                   </div>
                   <div style={{padding:"8px 16px 12px"}}>
-                    <div style={{display:"grid",gridTemplateColumns:"28px 1fr 1fr 36px",gap:6,marginBottom:4}}>
+                    <div style={{display:"grid",gridTemplateColumns:"24px 1fr 1fr 32px",gap:4,marginBottom:4}}>
                       {["SET", weightUnit.toUpperCase(),"REPS",""].map((h,i)=><div key={i} style={{fontSize:10,color:C.textLight,fontWeight:700}}>{h}</div>)}
                     </div>
                     {sets.map((set,si)=>{
                       const hint = conversionHint(set.weight);
                       return (
                         <div key={si} style={{marginBottom:8}}>
-                          <div style={{display:"grid",gridTemplateColumns:"28px 1fr 1fr 36px",gap:6,background:set.done?C.greenLight:"transparent",borderRadius:10,padding:"2px 0"}}>
+                          <div style={{display:"grid",gridTemplateColumns:"24px 1fr 1fr 32px",gap:4,background:set.done?C.greenLight:"transparent",borderRadius:10,padding:"2px 0"}}>
                             <div style={{fontSize:13,color:C.textMid,fontWeight:700,paddingTop:9,textAlign:"center"}}>{si+1}</div>
                             <input
                               value={set.weight}
