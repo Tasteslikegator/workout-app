@@ -32,7 +32,7 @@ const PLAN_EMOJIS = ["💪","🔥","⚡","🏋️","🌟","🎯","🚀","🦁","
 
 const uid = () => Math.random().toString(36).slice(2, 9);
 
-const DEFAULT_PLANS = [
+const DEFAULT_PLANS = [ /*
   {
     id: "p1", name: "Full Body Strength", emoji: "💪", tag: "3x/week",
     color: PLAN_COLORS[0].bg, tagColor: PLAN_COLORS[0].tag,
@@ -381,7 +381,7 @@ export default function WorkoutApp() {
   const [darkMode, setDarkMode] = useState(false);
   const C = darkMode ? DARK : LIGHT;
   const [tab, setTab] = useState("home");
-  const [plans, setPlans] = useState(DEFAULT_PLANS);
+  const [plans, setPlans] = useState([]);
   const [selectedPlanId, setSelectedPlanId] = useState(null);
   const [editingPlan, setEditingPlan] = useState(null);       // plan obj | "new" | null
   const [editingDay, setEditingDay] = useState(null);         // { planId, day|null }
