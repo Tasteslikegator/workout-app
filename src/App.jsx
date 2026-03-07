@@ -32,7 +32,7 @@ const PLAN_EMOJIS = ["💪","🔥","⚡","🏋️","🌟","🎯","🚀","🦁","
 
 const uid = () => Math.random().toString(36).slice(2, 9);
 
-const DEFAULT_PLANS = [ /*
+const DEFAULT_PLANS = [
   {
     id: "p1", name: "Full Body Strength", emoji: "💪", tag: "3x/week",
     color: PLAN_COLORS[0].bg, tagColor: PLAN_COLORS[0].tag,
