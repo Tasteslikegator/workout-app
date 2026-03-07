@@ -821,12 +821,7 @@ export default function WorkoutApp() {
 
             return (
             <div className="fade-in">
-              <div style={{padding:"28px 20px 8px",marginTop:300}}>
-                <div style={{fontSize:28,fontWeight:900,color:C.text,fontFamily:"Playfair Display"}}>Progress</div>
-                <div style={{fontSize:14,color:C.textLight,marginTop:4}}>Track your journey</div>
-              </div>
-              <div style={{padding:"0 20px",maxWidth:800,margin:"0 auto"}}>
-
+           
                 {/* Progress Header */}<div style={{padding:"20px 20px 8px"}}><div style={{fontSize:28,fontWeight:900,color:C.text,fontFamily:"Playfair Display"}}>Progress</div><div style={{fontSize:14,color:C.textLight,marginTop:4}}>Track your journey</div></div>{/* Stats */}
                 <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:8,maxHeight:200,overflow:"hidden"}}>
                   {[
