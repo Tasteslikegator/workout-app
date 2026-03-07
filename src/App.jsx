@@ -649,7 +649,7 @@ export default function WorkoutApp() {
                   </div>
                 ))}
               </div>
-              <div style={{padding:"0 20px",maxWidth:800,margin:"0 auto"}}>
+              <div style={{padding:"0 20px",maxWidth:600,margin:"0 auto"}}>
                 <div style={{fontSize:18,fontWeight:900,color:C.text,marginBottom:12,fontFamily:"Playfair Display"}}>Recent Workouts</div>
                 {completedSessions.length===0?(
                   <div style={{background:C.card,borderRadius:16,padding:24,textAlign:"center",color:C.textLight}}>
@@ -821,7 +821,7 @@ export default function WorkoutApp() {
 
             return (
             <div className="fade-in">
-              <div style={{padding:"0 20px",maxWidth:800,margin:"0 auto"}}>
+              <div style={{padding:"0 20px",maxWidth:600,margin:"0 auto"}}>
                 <div style={{padding:"20px 0 12px"}}>
                   <div style={{fontSize:28,fontWeight:900,color:C.text,fontFamily:"Playfair Display"}}>Progress</div>
                   <div style={{fontSize:14,color:C.textLight,marginTop:4}}>Track your journey</div>
@@ -1010,7 +1010,7 @@ export default function WorkoutApp() {
                 <div style={{fontSize:28,fontWeight:900,color:C.text,fontFamily:"Playfair Display"}}>Timer</div>
                 <div style={{fontSize:14,color:C.textLight,marginTop:4}}>Rest & stopwatch tools</div>
               </div>
-              <div style={{padding:"0 20px",maxWidth:800,margin:"0 auto"}}>
+              <div style={{padding:"0 20px",maxWidth:600,margin:"0 auto"}}>
                 <div style={{display:"flex",background:C.border,borderRadius:14,padding:4,marginBottom:24}}>
                   {["rest","stopwatch"].map(t=>(
                     <button key={t} onClick={()=>setTimerTab(t)} style={{flex:1,padding:"10px",borderRadius:10,background:timerTab===t?"#fff":"transparent",color:timerTab===t?C.accent:C.textLight,fontWeight:800,fontSize:14,fontFamily:"Nunito",boxShadow:timerTab===t?"0 2px 8px rgba(0,0,0,.1)":"none",transition:"all .2s"}}>
