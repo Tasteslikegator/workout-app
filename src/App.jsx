@@ -822,7 +822,10 @@ export default function WorkoutApp() {
             return (
             <div className="fade-in">
               <div style={{padding:"0 20px",maxWidth:800,margin:"0 auto"}}>
-
+                <div style={{padding:"20px 0 12px"}}>
+                  <div style={{fontSize:28,fontWeight:900,color:C.text,fontFamily:"Playfair Display"}}>Progress</div>
+                  <div style={{fontSize:14,color:C.textLight,marginTop:4}}>Track your journey</div>
+                </div>
                 {/* Stats */}
                 <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:8}}>
                   {[
@@ -831,7 +834,7 @@ export default function WorkoutApp() {
                     {label:"Total Volume",val:totalVolume>999?`${(totalVolume/1000).toFixed(1)}k`:totalVolume,icon:"📈",color:C.greenLight,accent:C.green},
                     {label:"🔥 Streak",val:`${streak}d`,icon:"",color:"#FFF3E0",accent:"#E07820"},
                   ].map((s,i)=>(
-                    <div key={i} style={{background:s.color,borderRadius:16,padding:18,textAlign:"center"}}>
+                    <div key={i} style={{background:s.color,borderRadius:16,padding:"10px 8px",textAlign:"center"}}>
                       {s.icon&&<div style={{fontSize:28}}>{s.icon}</div>}
                       <div style={{fontSize:s.icon?"":32,fontWeight:900,color:s.accent,marginTop:s.icon?4:0}}>{s.val}</div>
                       <div style={{fontSize:12,color:C.textMid,fontWeight:600,marginTop:2}}>{s.label}</div>
@@ -945,12 +948,6 @@ export default function WorkoutApp() {
                     })}
                   </div>
                 )}
-
-                {/* Progress Header */}
-                <div style={{padding:"8px 0 16px"}}>
-                  <div style={{fontSize:28,fontWeight:900,color:C.text,fontFamily:"Playfair Display"}}>Progress</div>
-                  <div style={{fontSize:14,color:C.textLight,marginTop:4}}>Track your journey</div>
-                </div>
 
                 {/* ── EXERCISE PROGRESSION GRAPH ─────────────────────── */}
                 {(()=>{
