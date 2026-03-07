@@ -752,7 +752,7 @@ export default function WorkoutApp() {
                         <div style={{fontSize:13,color:C.textLight,textAlign:"center",padding:"8px 0 10px"}}>No exercises yet — add one below!</div>
                       )}
                       {day.exercises.map((ex,ei)=>(
-                        <div key={ex.id} style={{display:"flex",alignItems:"center",gap:8,marginBottom:8,maxHeight:200,overflow:"hidden"}}>
+                        <div key={ex.id} style={{display:"flex",alignItems:"center",gap:8,marginBottom:8,padding:"9px 10px",background:C.cardAlt,borderRadius:12}}>
                           <div style={{flex:1,minWidth:0}}>
                             <div style={{fontWeight:700,fontSize:14,color:C.text,whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>{ex.name}</div>
                             <div style={{display:"flex",gap:6,alignItems:"center",marginTop:2,flexWrap:"wrap"}}>
@@ -821,16 +821,21 @@ export default function WorkoutApp() {
 
             return (
             <div className="fade-in">
-           
-                {/* Progress Header */}<div style={{padding:"20px 20px 8px"}}><div style={{fontSize:28,fontWeight:900,color:C.text,fontFamily:"Playfair Display"}}>Progress</div><div style={{fontSize:14,color:C.textLight,marginTop:4}}>Track your journey</div></div>{/* Stats */}
-                <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:8,maxHeight:200,overflow:"hidden"}}>
+              <div style={{padding:"28px 20px 8px"}}>
+                <div style={{fontSize:28,fontWeight:900,color:C.text,fontFamily:"Playfair Display"}}>Progress</div>
+                <div style={{fontSize:14,color:C.textLight,marginTop:4}}>Track your journey</div>
+              </div>
+              <div style={{padding:"0 20px",maxWidth:800,margin:"0 auto"}}>
+
+                {/* Stats */}
+                <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:8}}>
                   {[
                     {label:"Total Sessions",val:totalSessions,icon:"🏆",color:C.accentLight,accent:C.accent},
                     {label:"This Week",val:weekSessions,icon:"📅",color:C.purpleLight,accent:C.purple},
                     {label:"Total Volume",val:totalVolume>999?`${(totalVolume/1000).toFixed(1)}k`:totalVolume,icon:"📈",color:C.greenLight,accent:C.green},
                     {label:"🔥 Streak",val:`${streak}d`,icon:"",color:"#FFF3E0",accent:"#E07820"},
                   ].map((s,i)=>(
-                    <div key={i} style={{background:s.color,borderRadius:16,padding:"10px 12px",textAlign:"center"}}>
+                    <div key={i} style={{background:s.color,borderRadius:16,padding:18,textAlign:"center"}}>
                       {s.icon&&<div style={{fontSize:28}}>{s.icon}</div>}
                       <div style={{fontSize:s.icon?"":32,fontWeight:900,color:s.accent,marginTop:s.icon?4:0}}>{s.val}</div>
                       <div style={{fontSize:12,color:C.textMid,fontWeight:600,marginTop:2}}>{s.label}</div>
@@ -1013,10 +1018,10 @@ export default function WorkoutApp() {
                     );
                   })}
                 </div>
+              </div>
             </div>
-          </div>
-        );
-      })()}
+            );
+          })()}
 
           {/* TIMER */}
           {tab==="timer"&&(
