@@ -501,10 +501,10 @@ export default function WorkoutApp() {
   };
 
   return (
-    <div style={{ fontFamily:"'Nunito','Georgia',sans-serif", background:C.bg, minHeight:"100vh", width:"100%", margin:"0 auto", paddingTop:"env(safe-area-inset-top)", paddingBottom:120, overflowX:"hidden" }}>
+    <div style={{ fontFamily:"'Nunito','Georgia',sans-serif", background:C.bg, minHeight:"100vh", width:"100%", margin:"0 auto", paddingBottom:120, overflowX:"hidden" }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Playfair+Display:wght@700&display=swap');
-       *{box-sizing:border-box;margin:0;padding:0}button{cursor:pointer;border:none;outline:none}input{outline:none;border:none}::-webkit-scrollbar{width:0}html,body{height:100%;width:100%;overflow-x:hidden;background:#FDF8F4;}#root{width:100%;min-height:100vh;}
+        *{box-sizing:border-box;margin:0;padding:0}button{cursor:pointer;border:none;outline:none}input{outline:none;border:none}::-webkit-scrollbar{width:0}html,body{height:100%;overflow-x:hidden}
         .fade-in{animation:fi .3s ease}@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
         @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
         .pulse{animation:pu 2s infinite}@keyframes pu{0%,100%{opacity:1}50%{opacity:.5}}
@@ -580,14 +580,14 @@ export default function WorkoutApp() {
                     <div style={{fontSize:13,color:done===sets.length?C.green:C.textLight,fontWeight:700}}>{done}/{sets.length}</div>
                   </div>
                   <div style={{padding:"8px 16px 12px"}}>
-                    <div style={{display:"grid",gridTemplateColumns:"24px 1fr 1fr 32px",gap:4,marginBottom:4}}>
+                    <div style={{display:"grid",gridTemplateColumns:"28px 1fr 1fr 36px",gap:6,marginBottom:4}}>
                       {["SET", weightUnit.toUpperCase(),"REPS",""].map((h,i)=><div key={i} style={{fontSize:10,color:C.textLight,fontWeight:700}}>{h}</div>)}
                     </div>
                     {sets.map((set,si)=>{
                       const hint = conversionHint(set.weight);
                       return (
                         <div key={si} style={{marginBottom:8}}>
-                          <div style={{display:"grid",gridTemplateColumns:"24px 1fr 1fr 32px",gap:4,background:set.done?C.greenLight:"transparent",borderRadius:10,padding:"2px 0"}}>
+                          <div style={{display:"grid",gridTemplateColumns:"28px 1fr 1fr 36px",gap:6,background:set.done?C.greenLight:"transparent",borderRadius:10,padding:"2px 0"}}>
                             <div style={{fontSize:13,color:C.textMid,fontWeight:700,paddingTop:9,textAlign:"center"}}>{si+1}</div>
                             <input
                               value={set.weight}
@@ -626,7 +626,7 @@ export default function WorkoutApp() {
           {/* HOME */}
           {tab==="home"&&(
             <div className="fade-in">
-              <div style={{padding:"60px 20px 20px"}}>
+              <div style={{padding:"28px 20px 20px"}}>
                 <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:4}}>
                   <div style={{fontSize:13,color:C.textLight,fontWeight:600,letterSpacing:1,textTransform:"uppercase"}}>Good {new Date().getHours()<12?"Morning":new Date().getHours()<17?"Afternoon":"Evening"} 👋</div>
                   <button onClick={()=>setDarkMode(d=>!d)} style={{background:darkMode?"#2C2630":"#F0EBE8",borderRadius:20,padding:"6px 12px",fontSize:15,border:"none",cursor:"pointer",transition:"all .2s"}} title="Toggle dark mode">{darkMode?"☀️":"🌙"}</button>
@@ -636,7 +636,7 @@ export default function WorkoutApp() {
                   <div style={{fontSize:14,color:C.textMid,fontStyle:"italic"}}>"{quotes[quoteIdx]}"</div>
                 </div>
               </div>
-              <div style={{padding:"0 16px 20px",overflowX:"hidden",display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:10}}>
+              <div style={{padding:"0 20px 20px",display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:10}}>
                 {[
                   {label:"Sessions",val:totalSessions,icon:"🏆",color:C.accentLight,accent:C.accent},
                   {label:"This Week",val:weekSessions,icon:"📅",color:C.purpleLight,accent:C.purple},
@@ -676,7 +676,7 @@ export default function WorkoutApp() {
           {/* PLANS LIST */}
           {tab==="plans"&&!selectedPlan&&(
             <div className="fade-in">
-              <div style={{padding:"60px 20px 16px"}}>
+              <div style={{padding:"28px 20px 16px",display:"flex",justifyContent:"space-between",alignItems:"flex-end"}}>
                 <div>
                   <div style={{fontSize:28,fontWeight:900,color:C.text,fontFamily:"Playfair Display"}}>My Plans</div>
                   <div style={{fontSize:14,color:C.textLight,marginTop:4}}>{plans.length} plan{plans.length!==1?"s":""}</div>
@@ -828,7 +828,7 @@ export default function WorkoutApp() {
               <div style={{padding:"0 20px",maxWidth:600,margin:"0 auto"}}>
 
                 {/* Stats */}
-                <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12,marginBottom:12}}>
+                <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:8}}>
                   {[
                     {label:"Total Sessions",val:totalSessions,icon:"🏆",color:C.accentLight,accent:C.accent},
                     {label:"This Week",val:weekSessions,icon:"📅",color:C.purpleLight,accent:C.purple},
@@ -852,13 +852,13 @@ export default function WorkoutApp() {
                     <button onClick={nextMonth} style={{background:C.border,borderRadius:10,width:32,height:32,fontSize:16,display:"flex",alignItems:"center",justifyContent:"center",color:C.textMid}}>›</button>
                   </div>
                   {/* Day-of-week headers */}
-                  <div style={{display:"grid",gridTemplateColumns:"repeat(7,1fr)",marginBottom:6,maxWidth:360,margin:"0 auto 6px"}}>
+                  <div style={{display:"grid",gridTemplateColumns:"repeat(7,1fr)",marginBottom:6}}>
                     {["S","M","T","W","T","F","S"].map((d,i)=>(
                       <div key={i} style={{textAlign:"center",fontSize:11,fontWeight:700,color:C.textLight,paddingBottom:4}}>{d}</div>
                     ))}
                   </div>
                   {/* Calendar grid */}
-                  <div style={{display:"grid",gridTemplateColumns:"repeat(7,1fr)",gap:3,maxWidth:360,margin:"0 auto"}}>
+                  <div style={{display:"grid",gridTemplateColumns:"repeat(7,1fr)",gap:3}}>
                     {/* Empty cells before month start */}
                     {Array(firstDay).fill(null).map((_,i)=><div key={`e${i}`}/>)}
                     {/* Day cells */}
@@ -1025,8 +1025,8 @@ export default function WorkoutApp() {
 
           {/* TIMER */}
           {tab==="timer"&&(
-            <div className="fade-in" style={{overflowY:"auto",paddingBottom:40,maxWidth:800,margin:"0 auto",scrollMarginTop:0}}>
-              <div style={{padding:"60px 20px 20px"}}>
+            <div className="fade-in">
+              <div style={{padding:"28px 20px 20px"}}>
                 <div style={{fontSize:28,fontWeight:900,color:C.text,fontFamily:"Playfair Display"}}>Timer</div>
                 <div style={{fontSize:14,color:C.textLight,marginTop:4}}>Rest & stopwatch tools</div>
               </div>
