@@ -834,10 +834,9 @@ export default function WorkoutApp() {
                     {label:"Total Volume",val:totalVolume>999?`${(totalVolume/1000).toFixed(1)}k`:totalVolume,icon:"📈",color:C.greenLight,accent:C.green},
                     {label:"🔥 Streak",val:`${streak}d`,icon:"",color:"#FFF3E0",accent:"#E07820"},
                   ].map((s,i)=>(
-                    <div key={i} style={{background:s.color,borderRadius:16,padding:"10px 8px",textAlign:"center"}}>
-                      {s.icon&&<div style={{fontSize:28}}>{s.icon}</div>}
-                      <div style={{fontSize:s.icon?"":32,fontWeight:900,color:s.accent,marginTop:s.icon?4:0}}>{s.val}</div>
-                      <div style={{fontSize:12,color:C.textMid,fontWeight:600,marginTop:2}}>{s.label}</div>
+                    <div key={i} style={{background:s.color,borderRadius:16,padding:"8px",textAlign:"center"}}>
+                      <div style={{fontSize:22,fontWeight:900,color:s.accent}}>{s.val}</div>
+                      <div style={{fontSize:11,color:C.textMid,fontWeight:600,marginTop:2}}>{s.label}</div>
                     </div>
                   ))}
                 </div>
@@ -973,25 +972,7 @@ export default function WorkoutApp() {
                   return <ExerciseGraph exMap={exMap} exNames={exNames} COLORS={C} MUSCLE_COLOR={MUSCLE_COLOR} />;
                 })()}
 
-                {/* Sessions per Plan */}
-                <div style={{background:C.card,borderRadius:18,padding:18,marginBottom:16,boxShadow:"0 2px 12px rgba(0,0,0,.06)"}}>
-                  <div style={{fontWeight:800,fontSize:16,color:C.text,marginBottom:14,fontFamily:"Playfair Display"}}>Sessions per Plan</div>
-                  {plans.map(plan=>{
-                    const count=completedSessions.filter(s=>s.plan.id===plan.id).length;
-                    const pct=totalSessions>0?(count/totalSessions)*100:0;
-                    return (
-                      <div key={plan.id} style={{marginBottom:12}}>
-                        <div style={{display:"flex",justifyContent:"space-between",marginBottom:4}}>
-                          <div style={{fontSize:13,fontWeight:700,color:C.textMid}}>{plan.emoji} {plan.name}</div>
-                          <div style={{fontSize:13,fontWeight:800,color:plan.tagColor}}>{count}</div>
-                        </div>
-                        <div style={{background:C.border,borderRadius:10,height:8,overflow:"hidden"}}>
-                          <div style={{background:plan.tagColor,width:`${pct}%`,height:"100%",borderRadius:10,transition:"width .6s ease"}}/>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
+                
 
                 {/* History */}
                 <div style={{background:C.card,borderRadius:18,padding:18,boxShadow:"0 2px 12px rgba(0,0,0,.06)"}}>
