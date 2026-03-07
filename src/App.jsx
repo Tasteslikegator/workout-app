@@ -1025,7 +1025,7 @@ export default function WorkoutApp() {
 
           {/* TIMER */}
           {tab==="timer"&&(
-            <div className="fade-in" style={{overflowY:"auto",paddingBottom:40}}>
+            <div className="fade-in" style={{overflowY:"auto",paddingBottom:40,maxWidth:800,margin:"0 auto"}}>
               <div style={{padding:"60px 20px 20px"}}>
                 <div style={{fontSize:28,fontWeight:900,color:C.text,fontFamily:"Playfair Display"}}>Timer</div>
                 <div style={{fontSize:14,color:C.textLight,marginTop:4}}>Rest & stopwatch tools</div>
