@@ -504,7 +504,7 @@ export default function WorkoutApp() {
     <div style={{ fontFamily:"'Nunito','Georgia',sans-serif", background:C.bg, minHeight:"100vh", width:"100%", margin:"0 auto", paddingBottom:120, overflowX:"hidden" }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Playfair+Display:wght@700&display=swap');
-        *{box-sizing:border-box;margin:0;padding:0}button{cursor:pointer;border:none;outline:none}input{outline:none;border:none}::-webkit-scrollbar{width:0}html,body{height:100%;overflow-x:hidden}
+        *{box-sizing:border-box;margin:0;padding:0}button{cursor:pointer;border:none;outline:none}input{outline:none;border:none}::-webkit-scrollbar{width:0}html,body{height:100%;width:100%;overflow-x:hidden;background:#FDF8F4;}#root{width:100%;min-height:100vh;}
         .fade-in{animation:fi .3s ease}@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
         @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
         .pulse{animation:pu 2s infinite}@keyframes pu{0%,100%{opacity:1}50%{opacity:.5}}
@@ -649,7 +649,7 @@ export default function WorkoutApp() {
                   </div>
                 ))}
               </div>
-              <div style={{padding:"0 20px",maxWidth:600,margin:"0 auto"}}>
+              <div style={{padding:"0 20px",maxWidth:800,margin:"0 auto"}}>
                 <div style={{fontSize:18,fontWeight:900,color:C.text,marginBottom:12,fontFamily:"Playfair Display"}}>Recent Workouts</div>
                 {completedSessions.length===0?(
                   <div style={{background:C.card,borderRadius:16,padding:24,textAlign:"center",color:C.textLight}}>
@@ -825,7 +825,7 @@ export default function WorkoutApp() {
                 <div style={{fontSize:28,fontWeight:900,color:C.text,fontFamily:"Playfair Display"}}>Progress</div>
                 <div style={{fontSize:14,color:C.textLight,marginTop:4}}>Track your journey</div>
               </div>
-              <div style={{padding:"0 20px",maxWidth:600,margin:"0 auto"}}>
+              <div style={{padding:"0 20px",maxWidth:800,margin:"0 auto"}}>
 
                 {/* Stats */}
                 <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:8}}>
@@ -852,13 +852,13 @@ export default function WorkoutApp() {
                     <button onClick={nextMonth} style={{background:C.border,borderRadius:10,width:32,height:32,fontSize:16,display:"flex",alignItems:"center",justifyContent:"center",color:C.textMid}}>›</button>
                   </div>
                   {/* Day-of-week headers */}
-                  <div style={{display:"grid",gridTemplateColumns:"repeat(7,1fr)",marginBottom:6}}>
+                  <div style={{display:"grid",gridTemplateColumns:"repeat(7,1fr)",marginBottom:6,maxWidth:360,margin:"0 auto 6px"}}>
                     {["S","M","T","W","T","F","S"].map((d,i)=>(
                       <div key={i} style={{textAlign:"center",fontSize:11,fontWeight:700,color:C.textLight,paddingBottom:4}}>{d}</div>
                     ))}
                   </div>
                   {/* Calendar grid */}
-                  <div style={{display:"grid",gridTemplateColumns:"repeat(7,1fr)",gap:3}}>
+                  <div style={{display:"grid",gridTemplateColumns:"repeat(7,1fr)",gap:3,maxWidth:360,margin:"0 auto"}}>
                     {/* Empty cells before month start */}
                     {Array(firstDay).fill(null).map((_,i)=><div key={`e${i}`}/>)}
                     {/* Day cells */}
@@ -1030,7 +1030,7 @@ export default function WorkoutApp() {
                 <div style={{fontSize:28,fontWeight:900,color:C.text,fontFamily:"Playfair Display"}}>Timer</div>
                 <div style={{fontSize:14,color:C.textLight,marginTop:4}}>Rest & stopwatch tools</div>
               </div>
-              <div style={{padding:"0 20px",maxWidth:600,margin:"0 auto"}}>
+              <div style={{padding:"0 20px",maxWidth:800,margin:"0 auto"}}>
                 <div style={{display:"flex",background:C.border,borderRadius:14,padding:4,marginBottom:24}}>
                   {["rest","stopwatch"].map(t=>(
                     <button key={t} onClick={()=>setTimerTab(t)} style={{flex:1,padding:"10px",borderRadius:10,background:timerTab===t?"#fff":"transparent",color:timerTab===t?C.accent:C.textLight,fontWeight:800,fontSize:14,fontFamily:"Nunito",boxShadow:timerTab===t?"0 2px 8px rgba(0,0,0,.1)":"none",transition:"all .2s"}}>
