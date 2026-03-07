@@ -636,7 +636,7 @@ export default function WorkoutApp() {
                   <div style={{fontSize:14,color:C.textMid,fontStyle:"italic"}}>"{quotes[quoteIdx]}"</div>
                 </div>
               </div>
-              <div style={{padding:"0 20px 20px",display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:10}}>
+              <div style={{padding:"0 16px 20px",overflowX:"hidden",display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:10}}>
                 {[
                   {label:"Sessions",val:totalSessions,icon:"🏆",color:C.accentLight,accent:C.accent},
                   {label:"This Week",val:weekSessions,icon:"📅",color:C.purpleLight,accent:C.purple},
