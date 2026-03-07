@@ -676,7 +676,7 @@ export default function WorkoutApp() {
           {/* PLANS LIST */}
           {tab==="plans"&&!selectedPlan&&(
             <div className="fade-in">
-              <div style={{padding:"28px 20px 16px",marginTop:60,display:"flex",justifyContent:"space-between",alignItems:"flex-end"}}>
+              <div style={{padding:"28px 20px 16px",marginTop:120,display:"flex",justifyContent:"space-between",alignItems:"flex-end"}}>
                 <div>
                   <div style={{fontSize:28,fontWeight:900,color:C.text,fontFamily:"Playfair Display"}}>My Plans</div>
                   <div style={{fontSize:14,color:C.textLight,marginTop:4}}>{plans.length} plan{plans.length!==1?"s":""}</div>
