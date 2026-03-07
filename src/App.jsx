@@ -852,13 +852,13 @@ export default function WorkoutApp() {
                     <button onClick={nextMonth} style={{background:C.border,borderRadius:10,width:32,height:32,fontSize:16,display:"flex",alignItems:"center",justifyContent:"center",color:C.textMid}}>›</button>
                   </div>
                   {/* Day-of-week headers */}
-                  <div style={{display:"grid",gridTemplateColumns:"repeat(7,1fr)",marginBottom:6}}>
+                  <div style={{display:"grid",gridTemplateColumns:"repeat(7,1fr)",marginBottom:6,maxWidth:360,margin:"0 auto 6px"}}>
                     {["S","M","T","W","T","F","S"].map((d,i)=>(
                       <div key={i} style={{textAlign:"center",fontSize:11,fontWeight:700,color:C.textLight,paddingBottom:4}}>{d}</div>
                     ))}
                   </div>
                   {/* Calendar grid */}
-                  <div style={{display:"grid",gridTemplateColumns:"repeat(7,1fr)",gap:3}}>
+                  <div style={{display:"grid",gridTemplateColumns:"repeat(7,1fr)",gap:3,maxWidth:360,margin:"0 auto"}}>
                     {/* Empty cells before month start */}
                     {Array(firstDay).fill(null).map((_,i)=><div key={`e${i}`}/>)}
                     {/* Day cells */}
