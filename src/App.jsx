@@ -835,7 +835,7 @@ export default function WorkoutApp() {
                     {label:"Total Volume",val:totalVolume>999?`${(totalVolume/1000).toFixed(1)}k`:totalVolume,icon:"📈",color:C.greenLight,accent:C.green},
                     {label:"🔥 Streak",val:`${streak}d`,icon:"",color:"#FFF3E0",accent:"#E07820"},
                   ].map((s,i)=>(
-                    <div key={i} style={{background:s.color,borderRadius:16,padding:18,textAlign:"center"}}>
+                    <div key={i} style={{background:s.color,borderRadius:16,padding:"10px 12px",textAlign:"center"}}>
                       {s.icon&&<div style={{fontSize:28}}>{s.icon}</div>}
                       <div style={{fontSize:s.icon?"":32,fontWeight:900,color:s.accent,marginTop:s.icon?4:0}}>{s.val}</div>
                       <div style={{fontSize:12,color:C.textMid,fontWeight:600,marginTop:2}}>{s.label}</div>
