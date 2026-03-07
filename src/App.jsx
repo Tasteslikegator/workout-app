@@ -822,7 +822,7 @@ export default function WorkoutApp() {
             return (
             <div className="fade-in">
               <div style={{padding:"0 20px",maxWidth:600,margin:"0 auto"}}>
-                <div style={{padding:"20px 0 12px"}}>
+                <div style={{padding:"20px 0 12px",marginTop:180}}>
                   <div style={{fontSize:28,fontWeight:900,color:C.text,fontFamily:"Playfair Display"}}>Progress</div>
                   <div style={{fontSize:14,color:C.textLight,marginTop:4}}>Track your journey</div>
                 </div>
