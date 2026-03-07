@@ -1013,10 +1013,10 @@ export default function WorkoutApp() {
                     );
                   })}
                 </div>
-              </div>
             </div>
-            );
-          })()}
+          </div>
+        );
+      })()}
 
           {/* TIMER */}
           {tab==="timer"&&(
