@@ -32,62 +32,6 @@ const PLAN_EMOJIS = ["💪","🔥","⚡","🏋️","🌟","🎯","🚀","🦁","
 
 const uid = () => Math.random().toString(36).slice(2, 9);
 
-const DEFAULT_PLANS = [
-  {
-    id: "p1", name: "Full Body Strength", emoji: "💪", tag: "3x/week",
-    color: PLAN_COLORS[0].bg, tagColor: PLAN_COLORS[0].tag,
-    days: [
-      { id: "d1a", name: "Day A", exercises: [
-        { id: "e1", name: "Squat", sets: 3, reps: "5", muscle: "Legs" },
-        { id: "e2", name: "Bench Press", sets: 3, reps: "5", muscle: "Chest" },
-        { id: "e3", name: "Barbell Row", sets: 3, reps: "5", muscle: "Back" },
-      ]},
-      { id: "d1b", name: "Day B", exercises: [
-        { id: "e4", name: "Squat", sets: 3, reps: "5", muscle: "Legs" },
-        { id: "e5", name: "Overhead Press", sets: 3, reps: "5", muscle: "Shoulders" },
-        { id: "e6", name: "Deadlift", sets: 1, reps: "5", muscle: "Back" },
-      ]},
-    ]
-  },
-  {
-    id: "p2", name: "Push / Pull / Legs", emoji: "🔥", tag: "6x/week",
-    color: PLAN_COLORS[1].bg, tagColor: PLAN_COLORS[1].tag,
-    days: [
-      { id: "d2a", name: "Push", exercises: [
-        { id: "e7", name: "Bench Press", sets: 4, reps: "8-10", muscle: "Chest" },
-        { id: "e8", name: "Overhead Press", sets: 3, reps: "8-10", muscle: "Shoulders" },
-        { id: "e9", name: "Tricep Pushdown", sets: 3, reps: "12", muscle: "Triceps" },
-      ]},
-      { id: "d2b", name: "Pull", exercises: [
-        { id: "e10", name: "Pull-ups", sets: 4, reps: "8", muscle: "Back" },
-        { id: "e11", name: "Barbell Row", sets: 4, reps: "8-10", muscle: "Back" },
-        { id: "e12", name: "Bicep Curl", sets: 3, reps: "12", muscle: "Biceps" },
-      ]},
-      { id: "d2c", name: "Legs", exercises: [
-        { id: "e13", name: "Squat", sets: 4, reps: "8-10", muscle: "Legs" },
-        { id: "e14", name: "Romanian Deadlift", sets: 3, reps: "10", muscle: "Hamstrings" },
-        { id: "e15", name: "Calf Raise", sets: 4, reps: "15", muscle: "Calves" },
-      ]},
-    ]
-  },
-  {
-    id: "p3", name: "Upper / Lower Split", emoji: "🏋️", tag: "4x/week",
-    color: PLAN_COLORS[3].bg, tagColor: PLAN_COLORS[3].tag,
-    days: [
-      { id: "d3a", name: "Upper A", exercises: [
-        { id: "e16", name: "Bench Press", sets: 4, reps: "6-8", muscle: "Chest" },
-        { id: "e17", name: "Pull-ups", sets: 4, reps: "6-8", muscle: "Back" },
-        { id: "e18", name: "Overhead Press", sets: 3, reps: "8", muscle: "Shoulders" },
-      ]},
-      { id: "d3b", name: "Lower A", exercises: [
-        { id: "e19", name: "Squat", sets: 4, reps: "6-8", muscle: "Legs" },
-        { id: "e20", name: "Romanian Deadlift", sets: 3, reps: "10", muscle: "Hamstrings" },
-        { id: "e21", name: "Leg Press", sets: 3, reps: "12", muscle: "Legs" },
-      ]},
-    ]
-  },
-];
-
 const quotes = [
   "Every rep is a promise to yourself. 🌸",
   "Progress, not perfection. You've got this! ✨",
@@ -100,19 +44,14 @@ function formatTime(s) {
   return `${String(Math.floor(s/60)).padStart(2,"0")}:${String(s%60).padStart(2,"0")}`;
 }
 
-// ── Modal shell ─────────────────────────────────────────────────────────────
 function Modal({ title, onClose, children, C=LIGHT }) {
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => { document.body.style.overflow = ""; };
   }, []);
   return createPortal(
-    <div
-      onClick={onClose}
-      style={{ position:"fixed", top:0, left:0, right:0, bottom:0, background:"rgba(44,36,32,0.5)", zIndex:9999, display:"flex", alignItems:"center", justifyContent:"center", padding:"16px" }}>
-      <div
-        onClick={e=>e.stopPropagation()}
-        style={{ background:C.card, borderRadius:"24px", width:"100%", maxWidth:430, maxHeight:"80vh", overflowY:"auto", padding:"24px 20px 32px", WebkitOverflowScrolling:"touch" }}>
+    <div onClick={onClose} style={{ position:"fixed", top:0, left:0, right:0, bottom:0, background:"rgba(44,36,32,0.5)", zIndex:9999, display:"flex", alignItems:"center", justifyContent:"center", padding:"16px" }}>
+      <div onClick={e=>e.stopPropagation()} style={{ background:C.card, borderRadius:"24px", width:"100%", maxWidth:430, maxHeight:"80vh", overflowY:"auto", padding:"24px 20px 32px", WebkitOverflowScrolling:"touch" }}>
         <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:20 }}>
           <div style={{ fontSize:18, fontWeight:900, color:C.text, fontFamily:"Playfair Display" }}>{title}</div>
           <button onClick={onClose} style={{ background:C.border, borderRadius:20, width:36, height:36, fontSize:20, color:C.textMid, display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>×</button>
@@ -134,7 +73,6 @@ function InputField({ label, value, onChange, placeholder, type="text", C=LIGHT 
   );
 }
 
-// ── Exercise modal ───────────────────────────────────────────────────────────
 function ExerciseModal({ exercise, onSave, onClose, C=LIGHT }) {
   const [name, setName] = useState(exercise?.name || "");
   const [sets, setSets] = useState(String(exercise?.sets || "3"));
@@ -163,7 +101,6 @@ function ExerciseModal({ exercise, onSave, onClose, C=LIGHT }) {
   );
 }
 
-// ── Day modal ────────────────────────────────────────────────────────────────
 function DayModal({ day, onSave, onClose, C=LIGHT }) {
   const [name, setName] = useState(day?.name || "");
   return (
@@ -177,7 +114,6 @@ function DayModal({ day, onSave, onClose, C=LIGHT }) {
   );
 }
 
-// ── Plan modal ───────────────────────────────────────────────────────────────
 function PlanModal({ plan, onSave, onClose, C=LIGHT }) {
   const initColorIdx = plan ? Math.max(0, PLAN_COLORS.findIndex(c=>c.bg===plan.color)) : 0;
   const [name, setName] = useState(plan?.name || "");
@@ -212,49 +148,36 @@ function PlanModal({ plan, onSave, onClose, C=LIGHT }) {
   );
 }
 
-// ── Exercise Progression Graph ───────────────────────────────────────────────
 function ExerciseGraph({ exMap, exNames, COLORS, MUSCLE_COLOR }) {
   const [selEx, setSelEx] = useState(exNames[0]||"");
-  const [metric, setMetric] = useState("maxWeight"); // maxWeight | volume | maxReps
+  const [metric, setMetric] = useState("maxWeight");
   const [showDropdown, setShowDropdown] = useState(false);
+  const C = COLORS;
 
-  // Keep selEx valid if exNames changes
   const ex = exMap[selEx] || [];
-
   const metricLabel = { maxWeight:"Max Weight", volume:"Total Volume", maxReps:"Max Reps" };
   const metricUnit  = { maxWeight:"kg", volume:"kg×rep", maxReps:"reps" };
 
   if(!ex.length) return null;
 
-  // SVG line chart
   const W=320, H=130, PAD={top:14,right:14,bottom:28,left:44};
   const chartW = W-PAD.left-PAD.right;
   const chartH = H-PAD.top-PAD.bottom;
-
   const vals = ex.map(p=>p[metric]);
   const minV = Math.min(...vals);
   const maxV = Math.max(...vals);
   const range = maxV-minV || 1;
-
   const pts = ex.map((p,i)=>({
     x: PAD.left + (ex.length===1 ? chartW/2 : (i/(ex.length-1))*chartW),
     y: PAD.top + chartH - ((p[metric]-minV)/range)*chartH,
-    val: p[metric],
-    date: p.date,
+    val: p[metric], date: p.date,
   }));
-
   const polyline = pts.map(p=>`${p.x},${p.y}`).join(" ");
-
-  // Area fill path
   const areaPath = pts.length>1
     ? `M${pts[0].x},${PAD.top+chartH} `+pts.map(p=>`L${p.x},${p.y}`).join(" ")+` L${pts[pts.length-1].x},${PAD.top+chartH} Z`
     : "";
-
-  // Y axis ticks
   const yTicks = 3;
   const yTickVals = Array.from({length:yTicks+1},(_,i)=>minV+(range/yTicks)*i);
-
-  // Trend: up, down, flat
   const first=vals[0], last=vals[vals.length-1];
   const trend = last>first?"↑ Improving":last<first?"↓ Declining":"→ Steady";
   const trendColor = last>first?COLORS.green:last<first?"#C45050":COLORS.blue;
@@ -263,8 +186,6 @@ function ExerciseGraph({ exMap, exNames, COLORS, MUSCLE_COLOR }) {
   return (
     <div style={{background:C.card,borderRadius:20,padding:18,marginBottom:16,boxShadow:"0 2px 14px rgba(0,0,0,.07)"}}>
       <div style={{fontWeight:900,fontSize:16,color:COLORS.text,marginBottom:14,fontFamily:"Playfair Display"}}>Exercise Progression</div>
-
-      {/* Exercise selector */}
       <div style={{position:"relative",marginBottom:12}}>
         <button onClick={()=>setShowDropdown(v=>!v)}
           style={{width:"100%",background:C.inputBg,border:`1.5px solid ${COLORS.border}`,borderRadius:12,padding:"10px 14px",fontSize:14,fontFamily:"Nunito",fontWeight:700,color:COLORS.text,display:"flex",justifyContent:"space-between",alignItems:"center",cursor:"pointer"}}>
@@ -283,8 +204,6 @@ function ExerciseGraph({ exMap, exNames, COLORS, MUSCLE_COLOR }) {
           </div>
         )}
       </div>
-
-      {/* Metric tabs */}
       <div style={{display:"flex",background:COLORS.border,borderRadius:12,padding:3,marginBottom:16,gap:2}}>
         {Object.entries(metricLabel).map(([k,v])=>(
           <button key={k} onClick={()=>setMetric(k)}
@@ -293,8 +212,6 @@ function ExerciseGraph({ exMap, exNames, COLORS, MUSCLE_COLOR }) {
           </button>
         ))}
       </div>
-
-      {/* Trend summary */}
       <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12}}>
         <div>
           <div style={{fontSize:24,fontWeight:900,color:COLORS.text,fontFamily:"Playfair Display"}}>
@@ -307,8 +224,6 @@ function ExerciseGraph({ exMap, exNames, COLORS, MUSCLE_COLOR }) {
           {ex.length>1&&<div style={{fontSize:12,color:COLORS.textLight,marginTop:1}}>{pct>0?"+":""}{pct}% from start</div>}
         </div>
       </div>
-
-      {/* SVG Chart */}
       {ex.length===1?(
         <div style={{background:COLORS.accentLight,borderRadius:12,padding:"16px",textAlign:"center",fontSize:13,color:COLORS.accent,fontWeight:700}}>
           Log this exercise in more sessions to see your trend! 🌱
@@ -322,28 +237,21 @@ function ExerciseGraph({ exMap, exNames, COLORS, MUSCLE_COLOR }) {
                 <stop offset="100%" stopColor={COLORS.accent} stopOpacity="0.02"/>
               </linearGradient>
             </defs>
-            {/* Grid lines */}
             {yTickVals.map((v,i)=>{
               const y=PAD.top+chartH-((v-minV)/range)*chartH;
               return <line key={i} x1={PAD.left} x2={W-PAD.right} y1={y} y2={y} stroke={COLORS.border} strokeWidth="1"/>;
             })}
-            {/* Y labels */}
             {yTickVals.map((v,i)=>{
               const y=PAD.top+chartH-((v-minV)/range)*chartH;
               const label = v>=1000?`${(v/1000).toFixed(1)}k`:v%1===0?v:v.toFixed(1);
               return <text key={i} x={PAD.left-5} y={y+4} textAnchor="end" fontSize="9" fill={COLORS.textLight} fontFamily="Nunito">{label}</text>;
             })}
-            {/* X labels */}
             {pts.map((p,i)=>{
               if(pts.length>6 && i%Math.ceil(pts.length/5)!==0 && i!==pts.length-1) return null;
-              const short = p.date.replace(/[a-zA-Z]+ /,"").trim(); // just the day number
               return <text key={i} x={p.x} y={H-6} textAnchor="middle" fontSize="9" fill={COLORS.textLight} fontFamily="Nunito">{p.date.split(" ").slice(0,2).join(" ")}</text>;
             })}
-            {/* Area */}
             {areaPath&&<path d={areaPath} fill="url(#areaGrad)"/>}
-            {/* Line */}
             <polyline points={polyline} fill="none" stroke={COLORS.accent} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-            {/* Dots */}
             {pts.map((p,i)=>(
               <g key={i}>
                 <circle cx={p.x} cy={p.y} r="5" fill={COLORS.card} stroke={COLORS.accent} strokeWidth="2"/>
@@ -353,8 +261,6 @@ function ExerciseGraph({ exMap, exNames, COLORS, MUSCLE_COLOR }) {
           </svg>
         </div>
       )}
-
-      {/* Data table */}
       {ex.length>1&&(
         <div style={{marginTop:14,background:C.cardAlt,borderRadius:12,overflow:"hidden"}}>
           <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr 1fr",padding:"7px 12px",borderBottom:`1px solid ${COLORS.border}`}}>
@@ -376,18 +282,17 @@ function ExerciseGraph({ exMap, exNames, COLORS, MUSCLE_COLOR }) {
   );
 }
 
-// ═══════════════════════════════════════════════════════════════════════════════
 export default function WorkoutApp() {
   const [darkMode, setDarkMode] = useState(false);
   const C = darkMode ? DARK : LIGHT;
   const [tab, setTab] = useState("home");
-  const [plans, setPlans] = useState(DEFAULT_PLANS);
+  const [plans, setPlans] = useState([]);
   const [selectedPlanId, setSelectedPlanId] = useState(null);
-  const [editingPlan, setEditingPlan] = useState(null);       // plan obj | "new" | null
-  const [editingDay, setEditingDay] = useState(null);         // { planId, day|null }
-  const [editingExercise, setEditingExercise] = useState(null); // { planId, dayId, ex|null }
+  const [editingPlan, setEditingPlan] = useState(null);
+  const [editingDay, setEditingDay] = useState(null);
+  const [editingExercise, setEditingExercise] = useState(null);
   const [sessionLog, setSessionLog] = useState(null);
-  const [weightUnit, setWeightUnit] = useState("kg"); // "kg" | "lbs"
+  const [weightUnit, setWeightUnit] = useState("kg");
   const [prevWeightUnit, setPrevWeightUnit] = useState("kg");
   const [completedSessions, setCompletedSessions] = useState([]);
   const [timerSeconds, setTimerSeconds] = useState(90);
@@ -416,7 +321,6 @@ export default function WorkoutApp() {
 
   const selectedPlan = plans.find(p=>p.id===selectedPlanId)||null;
 
-  // Plan CRUD
   const savePlan = (data) => {
     if(editingPlan==="new"){ setPlans(p=>[...p,{...data,id:uid(),days:[]}]); }
     else { setPlans(p=>p.map(pl=>pl.id===editingPlan.id?{...pl,...data}:pl)); }
@@ -428,7 +332,6 @@ export default function WorkoutApp() {
     if(selectedPlanId===id) setSelectedPlanId(null);
   };
 
-  // Day CRUD
   const saveDay = (name) => {
     const {planId,day}=editingDay;
     setPlans(p=>p.map(pl=>{
@@ -443,7 +346,6 @@ export default function WorkoutApp() {
     setPlans(p=>p.map(pl=>pl.id!==planId?pl:{...pl,days:pl.days.filter(d=>d.id!==dayId)}));
   };
 
-  // Exercise CRUD
   const saveExercise = (exData) => {
     const {planId,dayId,ex}=editingExercise;
     const mutate=days=>days.map(d=>{
@@ -472,7 +374,6 @@ export default function WorkoutApp() {
     }));
   };
 
-  // Session
   const startWorkout=(plan,day)=>{
     const log={};
     day.exercises.forEach(ex=>{ log[ex.id]=Array(ex.sets).fill(null).map(()=>({weight:"",reps:"",done:false})); });
@@ -493,7 +394,7 @@ export default function WorkoutApp() {
   const circumference=2*Math.PI*54;
   const timerPct=timerValue>0?(timerSeconds/timerValue)*100:0;
 
-  const S = { // shared button styles
+  const S = {
     primary: { background:"linear-gradient(135deg,#E8826A,#C4634E)", color:"#fff", boxShadow:"0 3px 12px rgba(232,130,106,.35)" },
     ghost: { background:C.accentLight, color:C.accent, border:`1.5px dashed ${C.accent}` },
     editBtn: { background:C.blueLight, color:C.blue, borderRadius:8, width:28, height:28, fontSize:13, display:"flex", alignItems:"center", justifyContent:"center" },
@@ -513,10 +414,8 @@ export default function WorkoutApp() {
       {/* SESSION */}
       {tab==="session"&&sessionLog&&(()=>{
         const KG_TO_LBS = 2.20462;
-
         const handleUnitSwitch = (newUnit) => {
           if(newUnit === weightUnit) return;
-          // Convert all already-entered weights to the new unit
           setSessionLog(prev => {
             const newLog = {};
             Object.entries(prev.log).forEach(([exId, sets]) => {
@@ -534,21 +433,18 @@ export default function WorkoutApp() {
           setPrevWeightUnit(weightUnit);
           setWeightUnit(newUnit);
         };
-
         const conversionHint = (val) => {
           const n = parseFloat(val);
           if(!val || val==="" || isNaN(n) || n===0) return null;
           if(weightUnit==="kg") return `${(n*KG_TO_LBS).toFixed(1)} lbs`;
           return `${(n/KG_TO_LBS).toFixed(1)} kg`;
         };
-
         return (
         <div className="fade-in" style={{paddingBottom:100}}>
           <div style={{position:"sticky",top:0,zIndex:100,background:"linear-gradient(135deg,#E8826A,#C4634E)",padding:"12px 20px",color:"#fff"}}>
-            <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12}}>
+            <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:8}}>
               <button onClick={()=>{if(confirm("End without saving?")){{setSessionLog(null);setTab("plans");}}}} style={{background:"rgba(255,255,255,.2)",color:"#fff",borderRadius:20,padding:"6px 14px",fontSize:13,fontFamily:"Nunito"}}>← Back</button>
               <div style={{display:"flex",gap:8,alignItems:"center"}}>
-                {/* KG / LBS toggle */}
                 <div style={{display:"flex",background:"rgba(255,255,255,.2)",borderRadius:20,padding:3,gap:2}}>
                   {["kg","lbs"].map(u=>(
                     <button key={u} onClick={()=>handleUnitSwitch(u)}
@@ -589,25 +485,13 @@ export default function WorkoutApp() {
                         <div key={si} style={{marginBottom:8}}>
                           <div style={{display:"grid",gridTemplateColumns:"28px 1fr 1fr 36px",gap:6,background:set.done?C.greenLight:"transparent",borderRadius:10,padding:"2px 0"}}>
                             <div style={{fontSize:13,color:C.textMid,fontWeight:700,paddingTop:9,textAlign:"center"}}>{si+1}</div>
-                            <input
-                              value={set.weight}
-                              onChange={e=>updateSet(ex.id,si,"weight",e.target.value)}
-                              placeholder="—"
-                              type="number"
+                            <input value={set.weight} onChange={e=>updateSet(ex.id,si,"weight",e.target.value)} placeholder="—" type="number"
                               style={{background:C.inputBg,border:`1px solid ${C.border}`,borderRadius:10,padding:"7px 10px",fontSize:14,fontFamily:"Nunito",fontWeight:600,color:C.text}}/>
-                            <input
-                              value={set.reps}
-                              onChange={e=>updateSet(ex.id,si,"reps",e.target.value)}
-                              placeholder="—"
-                              type="number"
+                            <input value={set.reps} onChange={e=>updateSet(ex.id,si,"reps",e.target.value)} placeholder="—" type="number"
                               style={{background:C.inputBg,border:`1px solid ${C.border}`,borderRadius:10,padding:"7px 10px",fontSize:14,fontFamily:"Nunito",fontWeight:600,color:C.text}}/>
                             <button onClick={()=>toggleSetDone(ex.id,si)} style={{background:set.done?C.green:"#f0ebe8",borderRadius:10,width:36,height:36,fontSize:16,display:"flex",alignItems:"center",justifyContent:"center"}}>{set.done?"✓":""}</button>
                           </div>
-                          {hint&&(
-                            <div style={{paddingLeft:36,marginTop:2,fontSize:11,color:C.textLight,fontWeight:600}}>
-                              = {hint}
-                            </div>
-                          )}
+                          {hint&&<div style={{paddingLeft:36,marginTop:2,fontSize:11,color:C.textLight,fontWeight:600}}>= {hint}</div>}
                         </div>
                       );
                     })}
@@ -714,17 +598,19 @@ export default function WorkoutApp() {
           {/* PLAN DETAIL */}
           {tab==="plans"&&selectedPlan&&(
             <div className="fade-in">
-              <div style={{position:"sticky",top:0,zIndex:100,background:`linear-gradient(135deg,${selectedPlan.color} 0%,${selectedPlan.color}99 100%)`,padding:"12px 20px"}}>
-                <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:0}}>
-                  <button onClick={()=>setSelectedPlanId(null)} style={{background:"rgba(255,255,255,.65)",color:C.textMid,borderRadius:20,padding:"6px 14px",fontSize:13,fontFamily:"Nunito",fontWeight:700}}>← Plans</button>
-                  <div style={{display:"flex",gap:8}}>
-                    <button onClick={()=>setEditingPlan(selectedPlan)} style={{background:"rgba(255,255,255,.65)",color:C.blue,borderRadius:10,width:34,height:34,fontSize:16,display:"flex",alignItems:"center",justifyContent:"center"}}>✏️</button>
-                    <button onClick={()=>setEditingDay({planId:selectedPlan.id,day:null})} style={{...S.primary,borderRadius:12,padding:"7px 14px",fontSize:13,fontWeight:800,fontFamily:"Nunito"}}>+ Day</button>
-                  </div>
+              {/* STICKY back button bar */}
+              <div style={{position:"fixed",top:0,left:0,right:0,zIndex:200,background:`linear-gradient(135deg,${selectedPlan.color} 0%,${selectedPlan.color}dd 100%)`,padding:"12px 16px",display:"flex",justifyContent:"space-between",alignItems:"center",boxShadow:"0 2px 10px rgba(0,0,0,.08)"}}>
+                <button onClick={()=>setSelectedPlanId(null)} style={{background:"rgba(255,255,255,.7)",color:C.textMid,borderRadius:20,padding:"7px 16px",fontSize:14,fontFamily:"Nunito",fontWeight:800}}>← Plans</button>
+                <div style={{display:"flex",gap:8}}>
+                  <button onClick={()=>setEditingPlan(selectedPlan)} style={{background:"rgba(255,255,255,.7)",color:C.blue,borderRadius:10,width:36,height:36,fontSize:16,display:"flex",alignItems:"center",justifyContent:"center"}}>✏️</button>
+                  <button onClick={()=>setEditingDay({planId:selectedPlan.id,day:null})} style={{...S.primary,borderRadius:12,padding:"7px 14px",fontSize:13,fontWeight:800,fontFamily:"Nunito"}}>+ Day</button>
                 </div>
+              </div>
+              {/* Plan info header below sticky bar */}
+              <div style={{paddingTop:70,paddingLeft:16,paddingRight:16,paddingBottom:8,background:`linear-gradient(135deg,${selectedPlan.color} 0%,${selectedPlan.color}99 100%)`}}>
                 <div style={{fontSize:32,marginBottom:4}}>{selectedPlan.emoji}</div>
                 <div style={{fontSize:24,fontWeight:900,color:C.text,fontFamily:"Playfair Display"}}>{selectedPlan.name}</div>
-                <div style={{fontSize:13,color:selectedPlan.tagColor,fontWeight:700,marginTop:2}}>{selectedPlan.tag} · {selectedPlan.days.length} day{selectedPlan.days.length!==1?"s":""}</div>
+                <div style={{fontSize:13,color:selectedPlan.tagColor,fontWeight:700,marginTop:2,marginBottom:8}}>{selectedPlan.tag} · {selectedPlan.days.length} day{selectedPlan.days.length!==1?"s":""}</div>
               </div>
               <div style={{padding:"16px 16px 0"}}>
                 {selectedPlan.days.length===0&&(
@@ -736,7 +622,6 @@ export default function WorkoutApp() {
                 )}
                 {selectedPlan.days.map(day=>(
                   <div key={day.id} style={{background:C.card,borderRadius:18,marginBottom:14,overflow:"hidden",boxShadow:"0 2px 14px rgba(0,0,0,.07)"}}>
-                    {/* Day header */}
                     <div style={{padding:"14px 16px",display:"flex",justifyContent:"space-between",alignItems:"center",borderBottom:`1px solid ${C.border}`}}>
                       <div style={{fontWeight:800,fontSize:16,color:C.text}}>
                         {day.name} <span style={{fontSize:12,color:C.textLight,fontWeight:600}}>· {day.exercises.length} exercise{day.exercises.length!==1?"s":""}</span>
@@ -746,7 +631,6 @@ export default function WorkoutApp() {
                         <button onClick={()=>deleteDay(selectedPlan.id,day.id)} style={S.delBtn}>🗑</button>
                       </div>
                     </div>
-                    {/* Exercises */}
                     <div style={{padding:"10px 16px 14px"}}>
                       {day.exercises.length===0&&(
                         <div style={{fontSize:13,color:C.textLight,textAlign:"center",padding:"8px 0 10px"}}>No exercises yet — add one below!</div>
@@ -761,8 +645,8 @@ export default function WorkoutApp() {
                             </div>
                           </div>
                           <div style={{display:"flex",gap:4,flexShrink:0}}>
-                            <button onClick={()=>moveExercise(selectedPlan.id,day.id,ex.id,-1)} style={{background:C.border,borderRadius:7,width:26,height:26,fontSize:11,display:"flex",alignItems:"center",justifyContent:"center",color:C.textMid}} title="Move up">↑</button>
-                            <button onClick={()=>moveExercise(selectedPlan.id,day.id,ex.id,1)} style={{background:C.border,borderRadius:7,width:26,height:26,fontSize:11,display:"flex",alignItems:"center",justifyContent:"center",color:C.textMid}} title="Move down">↓</button>
+                            <button onClick={()=>moveExercise(selectedPlan.id,day.id,ex.id,-1)} style={{background:C.border,borderRadius:7,width:26,height:26,fontSize:11,display:"flex",alignItems:"center",justifyContent:"center",color:C.textMid}}>↑</button>
+                            <button onClick={()=>moveExercise(selectedPlan.id,day.id,ex.id,1)} style={{background:C.border,borderRadius:7,width:26,height:26,fontSize:11,display:"flex",alignItems:"center",justifyContent:"center",color:C.textMid}}>↓</button>
                             <button onClick={()=>setEditingExercise({planId:selectedPlan.id,dayId:day.id,ex})} style={S.editBtn}>✏️</button>
                             <button onClick={()=>deleteExercise(selectedPlan.id,day.id,ex.id)} style={S.delBtn}>×</button>
                           </div>
@@ -783,34 +667,25 @@ export default function WorkoutApp() {
 
           {/* PROGRESS */}
           {tab==="progress"&&(()=>{
-            // ── Calendar helpers ──────────────────────────────────────────
             const calYear  = calendarDate.getFullYear();
             const calMonth = calendarDate.getMonth();
             const monthName = calendarDate.toLocaleString("default",{month:"long"});
-            const firstDay = new Date(calYear, calMonth, 1).getDay(); // 0=Sun
+            const firstDay = new Date(calYear, calMonth, 1).getDay();
             const daysInMonth = new Date(calYear, calMonth+1, 0).getDate();
             const today = new Date();
-
-            // Map "MMM D" dates → sessions for fast lookup
             const sessionsByDate = {};
             completedSessions.forEach(s => {
-              const key = s.date; // already "MMM D" format
+              const key = s.date;
               if(!sessionsByDate[key]) sessionsByDate[key] = [];
               sessionsByDate[key].push(s);
             });
-
-            // Convert a cell date number → "MMM D" key
             const toKey = (d) => new Date(calYear,calMonth,d).toLocaleDateString("en-US",{month:"short",day:"numeric"});
-
             const prevMonth = () => setCalendarDate(new Date(calYear, calMonth-1, 1));
             const nextMonth = () => setCalendarDate(new Date(calYear, calMonth+1, 1));
-
             const isToday = (d) => today.getFullYear()===calYear && today.getMonth()===calMonth && today.getDate()===d;
             const isFuture = (d) => new Date(calYear,calMonth,d) > today;
             const selKey = selectedCalDay ? toKey(selectedCalDay) : null;
             const selSessions = selKey ? (sessionsByDate[selKey]||[]) : [];
-
-            // Build streak
             let streak = 0;
             const check = new Date(today);
             while(true){
@@ -818,21 +693,19 @@ export default function WorkoutApp() {
               if(sessionsByDate[k]&&sessionsByDate[k].length>0){ streak++; check.setDate(check.getDate()-1); }
               else break;
             }
-
             return (
             <div className="fade-in">
               <div style={{padding:"0 20px",maxWidth:800,margin:"0 auto"}}>
-                <div style={{padding:"20px 0 12px"}}>
+                <div style={{padding:"20px 0 12px",marginTop:180}}>
                   <div style={{fontSize:28,fontWeight:900,color:C.text,fontFamily:"Playfair Display"}}>Progress</div>
                   <div style={{fontSize:14,color:C.textLight,marginTop:4}}>Track your journey</div>
                 </div>
-                {/* Stats */}
                 <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:8}}>
                   {[
-                    {label:"Total Sessions",val:totalSessions,icon:"🏆",color:C.accentLight,accent:C.accent},
-                    {label:"This Week",val:weekSessions,icon:"📅",color:C.purpleLight,accent:C.purple},
-                    {label:"Total Volume",val:totalVolume>999?`${(totalVolume/1000).toFixed(1)}k`:totalVolume,icon:"📈",color:C.greenLight,accent:C.green},
-                    {label:"🔥 Streak",val:`${streak}d`,icon:"",color:"#FFF3E0",accent:"#E07820"},
+                    {label:"Total Sessions",val:totalSessions,color:C.accentLight,accent:C.accent},
+                    {label:"This Week",val:weekSessions,color:C.purpleLight,accent:C.purple},
+                    {label:"Total Volume",val:totalVolume>999?`${(totalVolume/1000).toFixed(1)}k`:totalVolume,color:C.greenLight,accent:C.green},
+                    {label:"🔥 Streak",val:`${streak}d`,color:"#FFF3E0",accent:"#E07820"},
                   ].map((s,i)=>(
                     <div key={i} style={{background:s.color,borderRadius:16,padding:"8px",textAlign:"center"}}>
                       <div style={{fontSize:22,fontWeight:900,color:s.accent}}>{s.val}</div>
@@ -840,26 +713,19 @@ export default function WorkoutApp() {
                     </div>
                   ))}
                 </div>
-
-                {/* ── CALENDAR ─────────────────────────────────────────── */}
                 <div style={{background:C.card,borderRadius:20,padding:18,marginBottom:16,boxShadow:"0 2px 14px rgba(0,0,0,.07)"}}>
-                  {/* Month nav */}
                   <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:16}}>
                     <button onClick={prevMonth} style={{background:C.border,borderRadius:10,width:32,height:32,fontSize:16,display:"flex",alignItems:"center",justifyContent:"center",color:C.textMid}}>‹</button>
                     <div style={{fontWeight:900,fontSize:17,color:C.text,fontFamily:"Playfair Display"}}>{monthName} {calYear}</div>
                     <button onClick={nextMonth} style={{background:C.border,borderRadius:10,width:32,height:32,fontSize:16,display:"flex",alignItems:"center",justifyContent:"center",color:C.textMid}}>›</button>
                   </div>
-                  {/* Day-of-week headers */}
                   <div style={{display:"grid",gridTemplateColumns:"repeat(7,1fr)",marginBottom:6,maxWidth:360,margin:"0 auto 6px"}}>
                     {["S","M","T","W","T","F","S"].map((d,i)=>(
                       <div key={i} style={{textAlign:"center",fontSize:11,fontWeight:700,color:C.textLight,paddingBottom:4}}>{d}</div>
                     ))}
                   </div>
-                  {/* Calendar grid */}
                   <div style={{display:"grid",gridTemplateColumns:"repeat(7,1fr)",gap:3,maxWidth:360,margin:"0 auto"}}>
-                    {/* Empty cells before month start */}
                     {Array(firstDay).fill(null).map((_,i)=><div key={`e${i}`}/>)}
-                    {/* Day cells */}
                     {Array(daysInMonth).fill(null).map((_,i)=>{
                       const d = i+1;
                       const key = toKey(d);
@@ -867,53 +733,19 @@ export default function WorkoutApp() {
                       const sessCount = sessionsByDate[key]?.length || 0;
                       const isSelected = selectedCalDay===d;
                       const future = isFuture(d);
-                      // Color intensity by session count
-                      const dotColor = hasSessions
-                        ? (sessCount>=2 ? C.accentDark : C.accent)
-                        : null;
+                      const dotColor = hasSessions ? (sessCount>=2 ? C.accentDark : C.accent) : null;
                       return (
                         <button key={d} onClick={()=>{ if(!future) setSelectedCalDay(isSelected?null:d); }}
-                          style={{
-                            aspectRatio:"1",
-                            borderRadius:10,
-                            background: isSelected ? C.accent
-                              : hasSessions ? C.accentLight
-                              : isToday(d) ? C.blueLight
-                              : "transparent",
-                            color: isSelected ? "#fff"
-                              : future ? C.border
-                              : isToday(d) ? C.blue
-                              : hasSessions ? C.accentDark
-                              : C.textMid,
-                            fontWeight: isToday(d)||hasSessions ? 800 : 600,
-                            fontSize: 13,
-                            fontFamily:"Nunito",
-                            border:"none",
-                            cursor: future?"default":"pointer",
-                            position:"relative",
-                            display:"flex",
-                            flexDirection:"column",
-                            alignItems:"center",
-                            justifyContent:"center",
-                            padding:"2px 0",
-                          }}>
+                          style={{aspectRatio:"1",borderRadius:10,background:isSelected?C.accent:hasSessions?C.accentLight:isToday(d)?C.blueLight:"transparent",color:isSelected?"#fff":future?C.border:isToday(d)?C.blue:hasSessions?C.accentDark:C.textMid,fontWeight:isToday(d)||hasSessions?800:600,fontSize:13,fontFamily:"Nunito",border:"none",cursor:future?"default":"pointer",position:"relative",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:"2px 0"}}>
                           {d}
-                          {hasSessions&&!isSelected&&(
-                            <div style={{width:4,height:4,borderRadius:"50%",background:dotColor,marginTop:1}}/>
-                          )}
-                          {isSelected&&hasSessions&&(
-                            <div style={{width:4,height:4,borderRadius:"50%",background:"rgba(255,255,255,.7)",marginTop:1}}/>
-                          )}
+                          {hasSessions&&!isSelected&&<div style={{width:4,height:4,borderRadius:"50%",background:dotColor,marginTop:1}}/>}
+                          {isSelected&&hasSessions&&<div style={{width:4,height:4,borderRadius:"50%",background:"rgba(255,255,255,.7)",marginTop:1}}/>}
                         </button>
                       );
                     })}
                   </div>
-                  {/* Legend */}
                   <div style={{display:"flex",gap:14,marginTop:14,justifyContent:"center"}}>
-                    {[
-                      {color:C.accentLight,dot:C.accent,label:"Workout day"},
-                      {color:C.blueLight,dot:C.blue,label:"Today"},
-                    ].map((l,i)=>(
+                    {[{color:C.accentLight,dot:C.accent,label:"Workout day"},{color:C.blueLight,dot:C.blue,label:"Today"}].map((l,i)=>(
                       <div key={i} style={{display:"flex",alignItems:"center",gap:5,fontSize:11,color:C.textLight,fontWeight:600}}>
                         <div style={{width:12,height:12,borderRadius:4,background:l.color,border:`1.5px solid ${l.dot}`}}/>
                         {l.label}
@@ -921,8 +753,6 @@ export default function WorkoutApp() {
                     ))}
                   </div>
                 </div>
-
-                {/* Selected day detail */}
                 {selectedCalDay&&(
                   <div style={{background:C.card,borderRadius:18,padding:18,marginBottom:16,boxShadow:"0 2px 14px rgba(0,0,0,.07)",animation:"fi .25s ease"}}>
                     <div style={{fontWeight:800,fontSize:15,color:C.text,marginBottom:10,fontFamily:"Playfair Display"}}>
@@ -947,14 +777,10 @@ export default function WorkoutApp() {
                     })}
                   </div>
                 )}
-
-                {/* ── EXERCISE PROGRESSION GRAPH ─────────────────────── */}
                 {(()=>{
-                  // Collect all unique exercise names that have at least one logged set with weight+reps
-                  const exMap = {}; // exName -> [{date, session_index, maxWeight, totalVolume, maxReps}]
+                  const exMap = {};
                   [...completedSessions].reverse().forEach((s, si) => {
                     Object.entries(s.log).forEach(([exId, sets]) => {
-                      // Find exercise name from the day
                       const ex = s.day.exercises.find(e=>e.id===exId);
                       if(!ex) return;
                       const doneSets = sets.filter(x=>x.done && x.weight && parseFloat(x.weight)>0);
@@ -968,13 +794,8 @@ export default function WorkoutApp() {
                   });
                   const exNames = Object.keys(exMap).sort();
                   if(!exNames.length) return null;
-
                   return <ExerciseGraph exMap={exMap} exNames={exNames} COLORS={C} MUSCLE_COLOR={MUSCLE_COLOR} />;
                 })()}
-
-                
-
-                {/* History */}
                 <div style={{background:C.card,borderRadius:18,padding:18,boxShadow:"0 2px 12px rgba(0,0,0,.06)"}}>
                   <div style={{fontWeight:800,fontSize:16,color:C.text,marginBottom:14,fontFamily:"Playfair Display"}}>Session History</div>
                   {completedSessions.length===0?(
