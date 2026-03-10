@@ -459,7 +459,7 @@ export default function WorkoutApp() {
             <div style={{fontSize:22,fontWeight:900,fontFamily:"Playfair Display"}}>{sessionLog.day.name}</div>
             <div style={{fontSize:13,opacity:.85,marginTop:2}}>{sessionLog.plan.name}</div>
           </div>
-          <div style={{padding:"16px 16px 0"}}>
+          <div style={{padding:"16px 16px 100px"}}>
             {sessionLog.day.exercises.map(ex=>{
               const sets=sessionLog.log[ex.id]||[];
               const done=sets.filter(s=>s.done).length;
@@ -607,12 +607,12 @@ export default function WorkoutApp() {
                 </div>
               </div>
               {/* Plan info header below sticky bar */}
-              <div style={{paddingTop:70,paddingLeft:16,paddingRight:16,paddingBottom:8,background:`linear-gradient(135deg,${selectedPlan.color} 0%,${selectedPlan.color}99 100%)`}}>
+              <div style={{paddingTop:80,paddingLeft:16,paddingRight:16,paddingBottom:8,background:`linear-gradient(135deg,${selectedPlan.color} 0%,${selectedPlan.color}99 100%)`}}>
                 <div style={{fontSize:32,marginBottom:4}}>{selectedPlan.emoji}</div>
                 <div style={{fontSize:24,fontWeight:900,color:C.text,fontFamily:"Playfair Display"}}>{selectedPlan.name}</div>
                 <div style={{fontSize:13,color:selectedPlan.tagColor,fontWeight:700,marginTop:2,marginBottom:8}}>{selectedPlan.tag} · {selectedPlan.days.length} day{selectedPlan.days.length!==1?"s":""}</div>
               </div>
-              <div style={{padding:"16px 16px 0"}}>
+              <div style={{padding:"16px 16px 100px"}}>
                 {selectedPlan.days.length===0&&(
                   <div style={{background:C.card,borderRadius:16,padding:24,textAlign:"center",color:C.textLight}}>
                     <div style={{fontSize:32,marginBottom:8}}>📅</div>
