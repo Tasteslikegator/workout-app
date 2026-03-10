@@ -599,7 +599,7 @@ export default function WorkoutApp() {
           {tab==="plans"&&selectedPlan&&(
             <div className="fade-in">
               {/* STICKY back button bar */}
-              <div style={{position:"fixed",top:0,left:0,right:0,zIndex:200,background:`linear-gradient(135deg,${selectedPlan.color} 0%,${selectedPlan.color}dd 100%)`,padding:"12px 16px",display:"flex",justifyContent:"space-between",alignItems:"center",boxShadow:"0 2px 10px rgba(0,0,0,.08)"}}>
+              <div style={{position:"sticky",top:0,zIndex:200,background:`linear-gradient(135deg,${selectedPlan.color} 0%,${selectedPlan.color}dd 100%)`,padding:"12px 16px",display:"flex",justifyContent:"space-between",alignItems:"center",boxShadow:"0 2px 10px rgba(0,0,0,.08)"}}>
                 <button onClick={()=>setSelectedPlanId(null)} style={{background:"rgba(255,255,255,.7)",color:C.textMid,borderRadius:20,padding:"7px 16px",fontSize:14,fontFamily:"Nunito",fontWeight:800}}>← Plans</button>
                 <div style={{display:"flex",gap:8}}>
                   <button onClick={()=>setEditingPlan(selectedPlan)} style={{background:"rgba(255,255,255,.7)",color:C.blue,borderRadius:10,width:36,height:36,fontSize:16,display:"flex",alignItems:"center",justifyContent:"center"}}>✏️</button>
@@ -607,7 +607,7 @@ export default function WorkoutApp() {
                 </div>
               </div>
               {/* Plan info header below sticky bar */}
-              <div style={{marginTop:60,paddingLeft:16,paddingRight:16,paddingBottom:8,background:`linear-gradient(135deg,${selectedPlan.color} 0%,${selectedPlan.color}99 100%)`}}>
+              <div style={{paddingTop:8,paddingLeft:16,paddingRight:16,paddingBottom:8,background:`linear-gradient(135deg,${selectedPlan.color} 0%,${selectedPlan.color}99 100%)`}}>
                 <div style={{fontSize:32,marginBottom:4}}>{selectedPlan.emoji}</div>
                 <div style={{fontSize:24,fontWeight:900,color:C.text,fontFamily:"Playfair Display"}}>{selectedPlan.name}</div>
                 <div style={{fontSize:13,color:selectedPlan.tagColor,fontWeight:700,marginTop:2,marginBottom:8}}>{selectedPlan.tag} · {selectedPlan.days.length} day{selectedPlan.days.length!==1?"s":""}</div>
