@@ -402,7 +402,7 @@ export default function WorkoutApp() {
   };
 
   return (
-    <div style={{ fontFamily:"'Nunito','Georgia',sans-serif", background:C.bg, minHeight:"100vh", width:"100%", margin:"0 auto", paddingBottom:120, overflowX:"hidden" }}>
+    <div style={{ fontFamily:"'Nunito','Georgia',sans-serif", background:C.bg, minHeight:"100vh", width:"100%", margin:"0 auto", paddingBottom:120, overflowX:"hidden", WebkitOverflowScrolling:"touch" }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Playfair+Display:wght@700&display=swap');
         *{box-sizing:border-box;margin:0;padding:0}button{cursor:pointer;border:none;outline:none}input{outline:none;border:none}::-webkit-scrollbar{width:0}html,body{height:100%;width:100%;overflow-x:hidden;background:#FDF8F4;}#root{width:100%;min-height:100vh;}
@@ -459,7 +459,7 @@ export default function WorkoutApp() {
             <div style={{fontSize:22,fontWeight:900,fontFamily:"Playfair Display"}}>{sessionLog.day.name}</div>
             <div style={{fontSize:13,opacity:.85,marginTop:2}}>{sessionLog.plan.name}</div>
           </div>
-          <div style={{padding:"16px 16px 100px"}}>
+          <div style={{padding:"16px 16px 100px", overflowY:"auto", WebkitOverflowScrolling:"touch"}}>
             {sessionLog.day.exercises.map(ex=>{
               const sets=sessionLog.log[ex.id]||[];
               const done=sets.filter(s=>s.done).length;
@@ -612,7 +612,7 @@ export default function WorkoutApp() {
                 <div style={{fontSize:24,fontWeight:900,color:C.text,fontFamily:"Playfair Display"}}>{selectedPlan.name}</div>
                 <div style={{fontSize:13,color:selectedPlan.tagColor,fontWeight:700,marginTop:2,marginBottom:8}}>{selectedPlan.tag} · {selectedPlan.days.length} day{selectedPlan.days.length!==1?"s":""}</div>
               </div>
-              <div style={{padding:"16px 16px 100px"}}>
+              <div style={{padding:"16px 16px 100px", overflowY:"auto", WebkitOverflowScrolling:"touch"}}>
                 {selectedPlan.days.length===0&&(
                   <div style={{background:C.card,borderRadius:16,padding:24,textAlign:"center",color:C.textLight}}>
                     <div style={{fontSize:32,marginBottom:8}}>📅</div>
