@@ -381,7 +381,7 @@ export default function WorkoutApp() {
   const [darkMode, setDarkMode] = useState(false);
   const C = darkMode ? DARK : LIGHT;
   const [tab, setTab] = useState("home");
-  const [plans, setPlans] = useState([]);
+  const [plans, setPlans] = useState(DEFAULT_PLANS);
   const [selectedPlanId, setSelectedPlanId] = useState(null);
   const [editingPlan, setEditingPlan] = useState(null);       // plan obj | "new" | null
   const [editingDay, setEditingDay] = useState(null);         // { planId, day|null }
@@ -544,7 +544,7 @@ export default function WorkoutApp() {
 
         return (
         <div className="fade-in" style={{paddingBottom:100}}>
-          <div style={{background:"linear-gradient(135deg,#E8826A,#C4634E)",padding:"20px 20px 28px",color:"#fff"}}>
+          <div style={{position:"sticky",top:0,zIndex:100,background:"linear-gradient(135deg,#E8826A,#C4634E)",padding:"12px 20px",color:"#fff"}}>
             <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12}}>
               <button onClick={()=>{if(confirm("End without saving?")){{setSessionLog(null);setTab("plans");}}}} style={{background:"rgba(255,255,255,.2)",color:"#fff",borderRadius:20,padding:"6px 14px",fontSize:13,fontFamily:"Nunito"}}>← Back</button>
               <div style={{display:"flex",gap:8,alignItems:"center"}}>
@@ -649,7 +649,7 @@ export default function WorkoutApp() {
                   </div>
                 ))}
               </div>
-              <div style={{padding:"0 20px",maxWidth:600,margin:"0 auto"}}>
+              <div style={{padding:"0 20px",maxWidth:800,margin:"0 auto"}}>
                 <div style={{fontSize:18,fontWeight:900,color:C.text,marginBottom:12,fontFamily:"Playfair Display"}}>Recent Workouts</div>
                 {completedSessions.length===0?(
                   <div style={{background:C.card,borderRadius:16,padding:24,textAlign:"center",color:C.textLight}}>
@@ -676,7 +676,7 @@ export default function WorkoutApp() {
           {/* PLANS LIST */}
           {tab==="plans"&&!selectedPlan&&(
             <div className="fade-in">
-              <div style={{padding:"160px 20px 16px",display:"flex",justifyContent:"space-between",alignItems:"flex-end"}}>
+              <div style={{padding:"28px 20px 16px",display:"flex",justifyContent:"space-between",alignItems:"flex-end"}}>
                 <div>
                   <div style={{fontSize:28,fontWeight:900,color:C.text,fontFamily:"Playfair Display"}}>My Plans</div>
                   <div style={{fontSize:14,color:C.textLight,marginTop:4}}>{plans.length} plan{plans.length!==1?"s":""}</div>
@@ -714,8 +714,8 @@ export default function WorkoutApp() {
           {/* PLAN DETAIL */}
           {tab==="plans"&&selectedPlan&&(
             <div className="fade-in">
-              <div style={{background:`linear-gradient(135deg,${selectedPlan.color} 0%,${selectedPlan.color}99 100%)`,padding:"20px 20px 24px"}}>
-                <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:14}}>
+              <div style={{position:"sticky",top:0,zIndex:100,background:`linear-gradient(135deg,${selectedPlan.color} 0%,${selectedPlan.color}99 100%)`,padding:"12px 20px"}}>
+                <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:0}}>
                   <button onClick={()=>setSelectedPlanId(null)} style={{background:"rgba(255,255,255,.65)",color:C.textMid,borderRadius:20,padding:"6px 14px",fontSize:13,fontFamily:"Nunito",fontWeight:700}}>← Plans</button>
                   <div style={{display:"flex",gap:8}}>
                     <button onClick={()=>setEditingPlan(selectedPlan)} style={{background:"rgba(255,255,255,.65)",color:C.blue,borderRadius:10,width:34,height:34,fontSize:16,display:"flex",alignItems:"center",justifyContent:"center"}}>✏️</button>
@@ -821,8 +821,8 @@ export default function WorkoutApp() {
 
             return (
             <div className="fade-in">
-              <div style={{padding:"0 20px",maxWidth:600,margin:"0 auto"}}>
-                <div style={{padding:"20px 0 12px",marginTop:180}}>
+              <div style={{padding:"0 20px",maxWidth:800,margin:"0 auto"}}>
+                <div style={{padding:"20px 0 12px"}}>
                   <div style={{fontSize:28,fontWeight:900,color:C.text,fontFamily:"Playfair Display"}}>Progress</div>
                   <div style={{fontSize:14,color:C.textLight,marginTop:4}}>Track your journey</div>
                 </div>
@@ -1010,7 +1010,7 @@ export default function WorkoutApp() {
                 <div style={{fontSize:28,fontWeight:900,color:C.text,fontFamily:"Playfair Display"}}>Timer</div>
                 <div style={{fontSize:14,color:C.textLight,marginTop:4}}>Rest & stopwatch tools</div>
               </div>
-              <div style={{padding:"0 20px",maxWidth:600,margin:"0 auto"}}>
+              <div style={{padding:"0 20px",maxWidth:800,margin:"0 auto"}}>
                 <div style={{display:"flex",background:C.border,borderRadius:14,padding:4,marginBottom:24}}>
                   {["rest","stopwatch"].map(t=>(
                     <button key={t} onClick={()=>setTimerTab(t)} style={{flex:1,padding:"10px",borderRadius:10,background:timerTab===t?"#fff":"transparent",color:timerTab===t?C.accent:C.textLight,fontWeight:800,fontSize:14,fontFamily:"Nunito",boxShadow:timerTab===t?"0 2px 8px rgba(0,0,0,.1)":"none",transition:"all .2s"}}>
