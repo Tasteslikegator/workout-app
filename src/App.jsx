@@ -339,7 +339,7 @@ export default function WorkoutApp() {
       if(day) return {...pl,days:pl.days.map(d=>d.id===day.id?{...d,name}:d)};
       return {...pl,days:[...pl.days,{id:uid(),name,exercises:[]}]};
     }));
-    setEditingDay(null);
+    setEditingDay(null); window.scrollTo(0,0);
   };
   const deleteDay = (planId,dayId) => {
     if(!confirm("Remove this day?")) return;
